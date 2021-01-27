@@ -15,6 +15,7 @@ public class Main{
 		var lexer = new SampleLexer( CharStreams.fromString(content) );
 		TokenStream tokens = new CommonTokenStream(lexer);
 		SampleParser parser = new SampleParser(tokens);
+
 		SampleVisitor<String> v = new MySampleVisitor();
 		//System.out.println(v.visitCode(parser.code()));
 		PrintWriter writer = new PrintWriter("c_code.c", StandardCharsets.UTF_8);
