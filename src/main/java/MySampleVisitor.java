@@ -2,8 +2,6 @@ import java.util.*;
 
 public class MySampleVisitor extends SampleBaseVisitor<String>{
 
-	private Set<String> existingVars = new HashSet<>();
-
 	@Override
 	public String visitText(SampleParser.TextContext ctx) {
 		StringBuilder functions = new StringBuilder();
@@ -268,4 +266,6 @@ public class MySampleVisitor extends SampleBaseVisitor<String>{
 		result.append(")");
 		return result.toString();
 	}
+
+	private Set<String> existingVars = new HashSet<>();
 }
