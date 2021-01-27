@@ -1,21 +1,8 @@
-fun foo (arg: int, arg2: bool)
-  a, b, c, d = readint(), 2 + 2, readbool(), 3 > 5
-  e = d & true
-  f = 10 * a > 100
-  a = readint()
-  return true
-nuf
+a, b = readdouble(), readdouble()
+c = readdouble()
+a, b, c = b, b, a
 
 
-fun bar ()
-  a, b = 2, 5
-nuf
 
-a = 2
-b, c = readint(), readbool()
-
-ifbegin b > c:
-  a = 5
-  a = 3
-ifend
-
+d, e, f, g = readbool(), readbool(), readbool(), readbool()
+e, f, g, d = f, g, d, e
