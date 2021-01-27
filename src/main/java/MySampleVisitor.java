@@ -13,7 +13,7 @@ public class MySampleVisitor extends SampleBaseVisitor<String>{
 			if (isFunction) {
 				SampleParser.Func_defContext function = expression.func_def();
 				String funName = function.VAR().getText();
-				String args = visitTypedArgs(function.typedArgs());
+				String args = visitT_args(function.t_args());
 				ArrayList<String> functionBodyParts = new ArrayList<>();
 				for (var statement : function.statement()) {
 					functionBodyParts.add(visitStatement(statement));
@@ -21,7 +21,7 @@ public class MySampleVisitor extends SampleBaseVisitor<String>{
 				String functionBody = String.join("\n", functionBodyParts);
 				String returnType;
 				String  returnValue;
-				if (function.RETURN() != null) {
+				if (function.RET() != null) {
 					List<String> typeAndExpression = Arrays.asList(visitSingleAE(function.singleAE()).split(":"));
 					returnType = typeAndExpression.get(0);
 					returnValue = "return " + typeAndExpression.get(1) + ";";
@@ -229,30 +229,30 @@ public class MySampleVisitor extends SampleBaseVisitor<String>{
 		return ctx.getText();
 	}
 
-	@Override
-	public String visitTypedArgs(SampleParser.TypedArgsContext ctx) {
-		if (ctx.typedArg() == null) {
-			return "()";
-		}
-		String firstArgType = ctx.typedArg().type().getText();
-		if (firstArgType.equals("bool")) {
-			firstArgType = "bool";
-		}
-		String firstArgName = ctx.typedArg().VAR().getText();
-		ArrayList<String> followingArgsType = new ArrayList<>();
-		ArrayList<String> followingArgsNames = new ArrayList<>();
-		for (var typedArg : ctx.nextTypedArg()) {
-			var curArg = typedArg.typedArg();
-			String argType = curArg.type().getText();
-			if (argType.equals("bool")) {
-				argType = "bool";
-			}
-			followingArgsType.add(argType);
-			String argName = curArg.VAR().getText();
-			followingArgsNames.add(argName);
-		}
-		return printTypedArgs(firstArgType, firstArgName, followingArgsType, followingArgsNames);
-	}
+    @Override
+    public String visitT_args(SampleParser.T_argsContext ctx) {
+        if (ctx.typedArg() == null) {
+            return "()";
+        }
+        String firstArgType = ctx.typedArg().type().getText();
+        if (firstArgType.equals("bool")) {
+            firstArgType = "bool";
+        }
+        String firstArgName = ctx.typedArg().VAR().getText();
+        ArrayList<String> followingArgsType = new ArrayList<>();
+        ArrayList<String> followingArgsNames = new ArrayList<>();
+        for (var typedArg : ctx.nextTypedArg()) {
+            var curArg = typedArg.typedArg();
+            String argType = curArg.type().getText();
+            if (argType.equals("bool")) {
+                argType = "bool";
+            }
+            followingArgsType.add(argType);
+            String argName = curArg.VAR().getText();
+            followingArgsNames.add(argName);
+        }
+        return printTypedArgs(firstArgType, firstArgName, followingArgsType, followingArgsNames);
+    }
 
 	private String printTypedArgs(String firstArgType, String firstArgName, ArrayList<String> argTypes, ArrayList<String> argNames) {
 		StringBuilder result = new StringBuilder("(");
