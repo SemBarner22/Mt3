@@ -1,0 +1,21 @@
+fun foo (arg: int, arg2: bool)
+  a, b, c, d = readint(), 2 + 2, readbool(), 3 > 5
+  e = d & true
+  f = 10 * a > 100
+  a = readint()
+  return true
+nuf
+
+
+fun bar ()
+  a, b = 2, 5
+nuf
+
+a = 2
+b, c = readint(), readbool()
+
+if b > c:
+  a = 5
+  a = 3
+fi
+
